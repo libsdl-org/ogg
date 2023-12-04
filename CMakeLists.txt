@@ -104,6 +104,12 @@ set_target_properties(
     VERSION ${LIB_VERSION}
     #PUBLIC_HEADER "${OGG_HEADERS}"
 )
+if(WIN32 AND BUILD_SHARED_LIBS)
+    # FIXME: keep soversion in sync with autotools
+    set_property(TARGET ogg PROPERTY RUNTIME_OUTPUT_NAME "ogg-0")
+    # Requires CMake 3.27, so not sufficient
+    set_property(TARGET ogg PROPERTY DLL_NAME_WITH_SOVERSION FALSE)
+endif()
 
 if(BUILD_FRAMEWORK)
     set_target_properties(ogg PROPERTIES
